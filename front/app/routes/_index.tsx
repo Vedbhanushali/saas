@@ -1,4 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
+import {
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/remix";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,5 +16,28 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <h1 className="text-10xl font-bold underline bg-green-600">Login</h1>;
+  return (
+    <div>
+      <h1>Index Route</h1>
+      <SignedIn>
+        <p>You are signed in!</p>
+        <div>
+          <p>View your profile here</p>
+          <UserButton />
+        </div>
+        <div>
+          <SignOutButton />
+        </div>
+      </SignedIn>
+      <SignedOut>
+        <p>You are signed out</p>
+        <div>
+          <SignInButton />
+        </div>
+        <div>
+          <SignUpButton />
+        </div>
+      </SignedOut>
+    </div>
+  );
 }
