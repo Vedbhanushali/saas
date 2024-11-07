@@ -10,7 +10,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import stylesheet from "./tailwind.css";
+import stylesheet from "~/tailwind.css?url";
 
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 
@@ -29,7 +29,16 @@ export const meta: MetaFunction = () => [
 ];
 
 export const loader: LoaderFunction = (args) => rootAuthLoader(args);
-
+/*
+to send additional data
+export const loader: LoaderFunction = args => {
+  return rootAuthLoader(args, ({ request }) => {
+    const { sessionId, userId, getToken } = request.auth;
+    // fetch data
+    return { yourData: 'here' };
+  });
+};
+*/
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
