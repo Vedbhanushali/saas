@@ -8,7 +8,7 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: ["retro"],
+    themes: ["luxury"],
   },
 } satisfies Config
 
