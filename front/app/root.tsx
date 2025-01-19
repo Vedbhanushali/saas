@@ -4,13 +4,15 @@ import type {
   LinksFunction,
 } from "@remix-run/node";
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
-import stylesheet from "~/tailwind.css?url";
+import stylesheet from "./tailwind.css?url";
 
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 
@@ -29,16 +31,7 @@ export const meta: MetaFunction = () => [
 ];
 
 export const loader: LoaderFunction = (args) => rootAuthLoader(args);
-/*
-to send additional data
-export const loader: LoaderFunction = args => {
-  return rootAuthLoader(args, ({ request }) => {
-    const { sessionId, userId, getToken } = request.auth;
-    // fetch data
-    return { yourData: 'here' };
-  });
-};
-*/
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="luxury">
@@ -62,3 +55,25 @@ function App() {
 }
 
 export default ClerkApp(App);
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <>
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>{error.data}</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <h1>Error!</h1>
+      <p>{(error as { message: string })?.message ?? "Unknown error"}</p>
+    </>
+  );
+}
