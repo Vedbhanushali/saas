@@ -19,3 +19,12 @@ export const loader: LoaderFunction = async (args) => {
   // Return the retrieved user data
   return { serialisedUser: JSON.stringify(user) };
 };
+
+// ADD profile Details page
+export default function ProfileDetails() {
+  return (
+    <div>
+      <h1>Profile Details</h1>
+    </div>
+  );
+}
