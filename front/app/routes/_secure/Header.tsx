@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/remix";
+import { UserButton } from "@clerk/remix";
 
 export default function Header() {
   return (
@@ -9,12 +9,7 @@ export default function Header() {
           SaaS
         </Link>
       </div>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
+      <UserButton />
     </div>
   );
 }

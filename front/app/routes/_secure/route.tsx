@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 
 import {
+  Link,
   Outlet,
   isRouteErrorResponse,
   useLoaderData,
@@ -11,6 +12,7 @@ import { redirect } from "@remix-run/node";
 import { getAuth } from "@clerk/remix/ssr.server";
 import Header from "./Header";
 import Menu from "./Menu";
+import { SignedIn, SignedOut } from "@clerk/remix";
 
 export async function loader(args: LoaderFunctionArgs) {
   const { userId } = await getAuth(args);
@@ -23,11 +25,29 @@ export async function loader(args: LoaderFunctionArgs) {
 export type RouteLoaderType = ReturnType<typeof useLoaderData<typeof loader>>;
 
 export default function SchoolLayout() {
+  //Client side protection when signed in then only show the layout
   return (
     <>
-      <Header />
-      <Menu />
-      <Outlet />
+      <SignedIn>
+        <Header />
+        <Menu />
+        <Outlet />
+      </SignedIn>
+      <SignedOut>
+        <div className="flex items-center justify-center h-screen">
+          <div className="card bg-base-100 w-96 shadow-xl">
+            <div className="card-body">
+              <h2 className="card-title">Oppsie</h2>
+              <p>Seems like you have been logout! please login again</p>
+              <div className="card-actions justify-end">
+                <Link to="/sign-in" className="btn btn-primary">
+                  Login
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </SignedOut>
     </>
   );
 }

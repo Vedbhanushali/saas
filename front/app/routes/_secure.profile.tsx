@@ -10,7 +10,6 @@ export const loader: LoaderFunction = async (args) => {
   if (!userId) {
     return redirect("/sign-in?redirect_url=" + args.request.url);
   }
-
   // Initialize clerkClient and perform an operation
   const user = await createClerkClient({
     secretKey: process.env.CLERK_SECRET_KEY,

@@ -45,8 +45,8 @@ export default function Menu() {
           </Link>
         </li>
         <li>
-          <Link to="private">
-            Private
+          <Link to="dashboard">
+            Dashboard
             <span className="badge badge-xs badge-info"></span>
           </Link>
         </li>
