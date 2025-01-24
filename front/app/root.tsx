@@ -10,6 +10,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
   useRouteError,
 } from "@remix-run/react";
 import stylesheet from "./tailwind.css?url";
@@ -17,6 +18,7 @@ import stylesheet from "./tailwind.css?url";
 import { rootAuthLoader } from "@clerk/remix/ssr.server";
 
 import { ClerkApp } from "@clerk/remix";
+import LoadingBar from "./components/LoadingBar";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -33,6 +35,7 @@ export const meta: MetaFunction = () => [
 export const loader: LoaderFunction = (args) => rootAuthLoader(args);
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const nav = useNavigation();
   return (
     <html lang="en" data-theme="luxury">
       <head>
@@ -42,6 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {nav.state !== "idle" ? <LoadingBar /> : null}
         {children}
         <ScrollRestoration />
         <Scripts />
