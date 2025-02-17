@@ -1,21 +1,36 @@
-# SAAS APP
+# Welcome to Remix + Vite!
 
-<!-- TODO -->
+📖 See the [Remix docs](https://remix.run/docs) and the [Remix Vite docs](https://remix.run/docs/en/main/guides/vite) for details on supported features.
 
-## Database Setup
+## Development
 
-postgres database is running in docker container on port 5432 forwarded to localhost
+Run the Vite dev server:
 
-also database web interaction can be done on <https://localhost:8080>
-
-```
-docker-compose up -d
+```shellscript
+npm run dev
 ```
 
-below is database connection url
+## Deployment
 
-***DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA***
+First, build your app for production:
 
+```sh
+npm run build
 ```
-postgresql://ved:ved@localhost:5432/saas
+
+Then run the app in production mode:
+
+```sh
+npm start
 ```
+
+Now you'll need to pick a host to deploy it to.
+
+### DIY
+
+If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+
+Make sure to deploy the output of `npm run build`
+
+- `build/server`
+- `build/client`
